@@ -15,6 +15,6 @@ namespace OthelloAI
             this.heuristics = heuristics;
         }
 
-        public abstract State performNextMove(Player turn, StateNode node, int maxDepth);
+        public abstract State performNextMove(Player turn, StateNode node, int maxDepth, bool isMaximizingPlayer);
     }
 }
