@@ -27,4 +27,20 @@ namespace OthelloAI
             return score;
         }
     }
+
+    internal class AlphaBetaPruning : Algorithm
+    {
+        public AlphaBetaPruning(List<Heuristic> heuristics) : base(heuristics)
+        {
+        }
+        public override State performNextMove(Player turn, StateNode node, int maxDepth, bool isMaximizingPlayer)
+        {
+            
+        }
+
+        private State performRecursiveAlgorithm(Player turn, StateNode node, int maxDepth, int depth, bool isMaximizingPlayer, int alpha, int beta)
+        {
+            node.generateValidNextStates(turn);
+        }
+    }
 }
