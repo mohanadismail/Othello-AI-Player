@@ -8,7 +8,7 @@ namespace OthelloAI
 {
     internal abstract class Algorithm
     {
-        List<Heuristic> heuristics;
+        protected List<Heuristic> heuristics;
 
         public Algorithm(List<Heuristic> heuristics)
         {
@@ -92,6 +92,26 @@ namespace OthelloAI
                 }
                 return beta;
             }
+        }
+    }
+
+    internal class AlphaBetaPruningIterative : Algorithm
+    {
+        public AlphaBetaPruningIterative(List<Heuristic> heuristics) : base(heuristics)
+        {
+        }
+
+        public override State performNextMove(Player turn, StateNode node, int maxDepth, bool isMaximizingPlayer)
+        {
+            State? bestState = null;
+            int currentDepth = 1;
+            while (currentDepth <= maxDepth)
+            {
+                Algorithm alphaBeta = new AlphaBetaPruning(this.heuristics);
+                bestState = alphaBeta.performNextMove(turn, node, currentDepth, isMaximizingPlayer);
+                currentDepth++;
+            }
+            return bestState;
         }
     }
 }
