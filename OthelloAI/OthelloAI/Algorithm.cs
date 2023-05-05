@@ -105,9 +105,9 @@ namespace OthelloAI
         {
             State? bestState = null;
             int currentDepth = 1;
+            Algorithm alphaBeta = new AlphaBetaPruning(this.heuristics);
             while (currentDepth <= maxDepth)
             {
-                Algorithm alphaBeta = new AlphaBetaPruning(this.heuristics);
                 bestState = alphaBeta.performNextMove(turn, node, currentDepth, isMaximizingPlayer);
                 currentDepth++;
             }
