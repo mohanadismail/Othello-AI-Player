@@ -46,22 +46,26 @@ namespace OthelloAI
                     if (board[i, j] == Player.None)
                     {
                         List<Coordinate> flippedPieces = new();
+                        bool isValidMove = false;
                         // iterate through all eight directions and check if this direction flips any pieces
                         foreach (Coordinate direction in Coordinate.directions)
                         {
+                            List<Coordinate> flippedPiecesInThisDirection = new();
                             Coordinate current = new Coordinate(i, j);
                             current = current + direction;
                             while (current.isWithinBoard() && board[current.x, current.y] == Coordinate.otherPlayer(turn))
                             {
-                                flippedPieces.Add(current);
+                                flippedPiecesInThisDirection.Add(current);
                                 current = current + direction;
                             }
-                            if (current.isWithinBoard() && board[current.x, current.y] == turn && flippedPieces.Count > 0)
+                            if (current.isWithinBoard() && board[current.x, current.y] == turn && flippedPiecesInThisDirection.Count > 0)
                             {
-                                validMoves.Add(new Coordinate(i, j), flippedPieces);
+                                flippedPieces.AddRange(flippedPiecesInThisDirection);
+                                isValidMove = true;
                                 break;
                             }
                         }
+                        if (isValidMove) validMoves.Add(new Coordinate(i, j), flippedPieces);
                     }
                 }
             }
