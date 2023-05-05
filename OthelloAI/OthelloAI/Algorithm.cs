@@ -35,12 +35,63 @@ namespace OthelloAI
         }
         public override State performNextMove(Player turn, StateNode node, int maxDepth, bool isMaximizingPlayer)
         {
-            
+            int alpha = int.MinValue;
+            int beta = int.MaxValue;
+            StateNode? bestNode = null;
+            node.generateValidNextStates(turn);
+            if (isMaximizingPlayer)
+            {
+                foreach (StateNode child in node.validNextStates)
+                {
+                    int score = performRecursiveAlgorithm(Coordinate.otherPlayer(turn), child, maxDepth, 1, !isMaximizingPlayer, alpha, beta);
+                    if (score > alpha)
+                    {
+                        alpha = score;
+                        bestNode = child;
+                    }
+                }
+            }
+            else
+            {
+                foreach (StateNode child in node.validNextStates)
+                {
+                    int score = performRecursiveAlgorithm(Coordinate.otherPlayer(turn), child, maxDepth, 1, !isMaximizingPlayer, alpha, beta);
+                    if (score < beta)
+                    {
+                        beta = score;
+                        bestNode = child;
+                    }
+                }
+            }
+            return bestNode.state;
         }
 
-        private State performRecursiveAlgorithm(Player turn, StateNode node, int maxDepth, int depth, bool isMaximizingPlayer, int alpha, int beta)
+        private int performRecursiveAlgorithm(Player turn, StateNode node, int maxDepth, int depth, bool isMaximizingPlayer, int alpha, int beta)
         {
+            if (depth == maxDepth)
+            {
+                if (isMaximizingPlayer) return evaluateState(node.state, turn, Coordinate.otherPlayer(turn));
+                else return evaluateState(node.state, Coordinate.otherPlayer(turn), turn);
+            }
             node.generateValidNextStates(turn);
+            if (isMaximizingPlayer)
+            {
+                foreach (StateNode child in node.validNextStates)
+                {
+                    alpha = Math.Max(alpha, performRecursiveAlgorithm(Coordinate.otherPlayer(turn), child, maxDepth, depth + 1, false, alpha, beta));
+                    if (alpha >= beta) return int.MaxValue;
+                }
+                return alpha;
+            }
+            else
+            {
+                foreach (StateNode child in node.validNextStates)
+                {
+                    beta = Math.Min(beta, performRecursiveAlgorithm(Coordinate.otherPlayer(turn), child, maxDepth, depth + 1, true, alpha, beta));
+                    if (alpha >= beta) return int.MinValue;
+                }
+                return beta;
+            }
         }
     }
 }
