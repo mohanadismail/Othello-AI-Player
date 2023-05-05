@@ -9,12 +9,12 @@ namespace OthelloAI
 {
     internal abstract class Heuristic
     {
-        int weight;
-
         public Heuristic(int weight)
         {
-            this.weight = weight;
+            Weight = weight;
         }
+
+        public int Weight { get; set; }
 
         public abstract int calculateUtility(State board, Player max, Player min);
     }
