@@ -44,7 +44,9 @@
             // 
             button1.BackColor = Color.Black;
             button1.FlatAppearance.BorderColor = Color.Black;
-            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatAppearance.BorderSize = 2;
+            button1.FlatAppearance.MouseDownBackColor = Color.Black;
+            button1.FlatAppearance.MouseOverBackColor = Color.Green;
             button1.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Italic, GraphicsUnit.Point);
             button1.ForeColor = SystemColors.ButtonHighlight;
             button1.Location = new Point(83, 80);
@@ -59,7 +61,7 @@
             // 
             button2.BackColor = Color.Black;
             button2.FlatAppearance.BorderColor = Color.Black;
-            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatAppearance.BorderSize = 2;
             button2.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Italic, GraphicsUnit.Point);
             button2.ForeColor = SystemColors.ButtonHighlight;
             button2.Location = new Point(363, 80);
@@ -74,7 +76,7 @@
             // 
             button3.BackColor = Color.Black;
             button3.FlatAppearance.BorderColor = Color.Black;
-            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatAppearance.BorderSize = 2;
             button3.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Italic, GraphicsUnit.Point);
             button3.ForeColor = SystemColors.ButtonHighlight;
             button3.Location = new Point(645, 80);
@@ -143,6 +145,8 @@
             button4.Text = "Start Game";
             button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click;
+            button4.MouseDown += button4_MouseDown;
+            button4.MouseUp += button4_MouseUp;
             // 
             // Form1
             // 
