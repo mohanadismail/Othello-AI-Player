@@ -29,7 +29,7 @@ namespace OthelloAI
 
         private void button4_Click(object sender, EventArgs e)
         {
-            
+
 
         }
 
@@ -72,6 +72,10 @@ namespace OthelloAI
         private void button3_Click(object sender, EventArgs e)
         {
             formatSelectedButton(button3);
+            //show label1 and trackbar1
+            label1.Show();
+            trackBar1.Show();
+
             //show label2 and trackbar2
             label2.Show();
             trackBar2.Show();
