@@ -79,9 +79,9 @@
             whiteScoreLabel.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
             whiteScoreLabel.Location = new Point(307, 58);
             whiteScoreLabel.Name = "whiteScoreLabel";
-            whiteScoreLabel.Size = new Size(110, 35);
+            whiteScoreLabel.Size = new Size(28, 35);
             whiteScoreLabel.TabIndex = 1;
-            whiteScoreLabel.Text = "label2";
+            whiteScoreLabel.Text = "2";
             // 
             // label3
             // 
@@ -102,6 +102,7 @@
             blackScoreLabel.Size = new Size(113, 35);
             blackScoreLabel.TabIndex = 3;
             blackScoreLabel.Text = "label4";
+            blackScoreLabel.Click += blackScoreLabel_Click;
             // 
             // turnLabel
             // 
@@ -119,13 +120,15 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1234, 931);
+            ClientSize = new Size(1234, 945);
             Controls.Add(turnLabel);
             Controls.Add(blackScoreLabel);
             Controls.Add(label3);
             Controls.Add(whiteScoreLabel);
             Controls.Add(label1);
             Controls.Add(boardLayout);
+            MaximumSize = new Size(1252, 992);
+            MinimumSize = new Size(1252, 992);
             Name = "boardWindow";
             Text = "boardWindow";
             Load += boardWindow_Load;
