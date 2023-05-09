@@ -42,6 +42,7 @@
             // 
             // button1
             // 
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             button1.BackColor = Color.Black;
             button1.FlatAppearance.BorderColor = Color.Black;
             button1.FlatAppearance.BorderSize = 2;
@@ -49,9 +50,9 @@
             button1.FlatAppearance.MouseOverBackColor = Color.Green;
             button1.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Italic, GraphicsUnit.Point);
             button1.ForeColor = SystemColors.ButtonHighlight;
-            button1.Location = new Point(83, 80);
+            button1.Location = new Point(91, 50);
             button1.Name = "button1";
-            button1.Size = new Size(229, 59);
+            button1.Size = new Size(270, 71);
             button1.TabIndex = 0;
             button1.Text = "Human vs Human";
             button1.UseVisualStyleBackColor = false;
@@ -59,14 +60,15 @@
             // 
             // button2
             // 
+            button2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             button2.BackColor = Color.Black;
             button2.FlatAppearance.BorderColor = Color.Black;
             button2.FlatAppearance.BorderSize = 2;
             button2.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Italic, GraphicsUnit.Point);
             button2.ForeColor = SystemColors.ButtonHighlight;
-            button2.Location = new Point(363, 80);
+            button2.Location = new Point(441, 50);
             button2.Name = "button2";
-            button2.Size = new Size(229, 59);
+            button2.Size = new Size(268, 71);
             button2.TabIndex = 3;
             button2.Text = "Human vs Ai";
             button2.UseVisualStyleBackColor = false;
@@ -79,9 +81,9 @@
             button3.FlatAppearance.BorderSize = 2;
             button3.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Italic, GraphicsUnit.Point);
             button3.ForeColor = SystemColors.ButtonHighlight;
-            button3.Location = new Point(645, 80);
+            button3.Location = new Point(805, 50);
             button3.Name = "button3";
-            button3.Size = new Size(229, 59);
+            button3.Size = new Size(270, 71);
             button3.TabIndex = 4;
             button3.Text = "Ai vs Ai";
             button3.UseVisualStyleBackColor = false;
@@ -89,45 +91,49 @@
             // 
             // trackBar1
             // 
+            trackBar1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             trackBar1.BackColor = Color.Black;
-            trackBar1.Location = new Point(134, 329);
+            trackBar1.Location = new Point(157, 329);
             trackBar1.Maximum = 4;
             trackBar1.Name = "trackBar1";
-            trackBar1.Size = new Size(270, 56);
+            trackBar1.Size = new Size(323, 56);
             trackBar1.TabIndex = 5;
             trackBar1.Scroll += trackBar1_Scroll;
             // 
             // trackBar2
             // 
+            trackBar2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             trackBar2.BackColor = Color.Black;
-            trackBar2.Location = new Point(630, 329);
+            trackBar2.Location = new Point(778, 321);
             trackBar2.Maximum = 4;
             trackBar2.Name = "trackBar2";
-            trackBar2.Size = new Size(277, 56);
+            trackBar2.Size = new Size(369, 56);
             trackBar2.TabIndex = 6;
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.BackColor = Color.Black;
             label1.BorderStyle = BorderStyle.Fixed3D;
             label1.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Italic, GraphicsUnit.Point);
             label1.ForeColor = SystemColors.ButtonHighlight;
             label1.Location = new Point(12, 329);
             label1.Name = "label1";
-            label1.Size = new Size(116, 56);
+            label1.Size = new Size(116, 64);
             label1.TabIndex = 7;
             label1.Text = "Ai Difficulty";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.BackColor = Color.Black;
             label2.BorderStyle = BorderStyle.Fixed3D;
             label2.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Italic, GraphicsUnit.Point);
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(513, 329);
+            label2.Location = new Point(630, 321);
             label2.Name = "label2";
-            label2.Size = new Size(111, 56);
+            label2.Size = new Size(116, 64);
             label2.TabIndex = 8;
             label2.Text = "Ai Difficulty";
             label2.TextAlign = ContentAlignment.MiddleCenter;
@@ -135,12 +141,13 @@
             // 
             // button4
             // 
+            button4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             button4.BackColor = Color.Black;
             button4.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Italic, GraphicsUnit.Point);
             button4.ForeColor = Color.White;
-            button4.Location = new Point(292, 433);
+            button4.Location = new Point(441, 490);
             button4.Name = "button4";
-            button4.Size = new Size(342, 70);
+            button4.Size = new Size(358, 79);
             button4.TabIndex = 9;
             button4.Text = "Start Game";
             button4.UseVisualStyleBackColor = false;
@@ -155,7 +162,7 @@
             BackColor = Color.PaleTurquoise;
             BackgroundImage = Properties.Resources.background;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(945, 563);
+            ClientSize = new Size(1185, 609);
             Controls.Add(button4);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -165,6 +172,9 @@
             Controls.Add(button2);
             Controls.Add(button1);
             DoubleBuffered = true;
+            MaximizeBox = false;
+            MaximumSize = new Size(1203, 656);
+            MinimumSize = new Size(1203, 656);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
