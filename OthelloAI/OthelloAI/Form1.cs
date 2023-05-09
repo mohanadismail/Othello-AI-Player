@@ -46,6 +46,9 @@ namespace OthelloAI
             button4.BackColor = Color.Black;
             button4.ForeColor = Color.White;
             //hide the current form
+            
+            boardWindow boardWindow = new boardWindow();
+            boardWindow.Show();
         }
         private void button1_Click(object sender, EventArgs e)
         {
