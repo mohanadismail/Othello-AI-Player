@@ -17,6 +17,8 @@ namespace OthelloAI
         State currentState;
         Button[,] buttonsGrid;
         Player currentTurn = Player.Black;
+        Dictionary<Coordinate, List<Coordinate>> validMoves;
+
         public boardWindow()
         {
             InitializeComponent();
@@ -28,17 +30,22 @@ namespace OthelloAI
             {
                 for (int column = 0; column < buttonsGrid.GetLength(1); column++)
                 {
-                    if (currentState.board[row, column] == Player.None)
-                    {
-                        buttonsGrid[row, column].Image = Resources.empty;
-                    }
-                    else if (currentState.board[row, column] == Player.White)
+                    Coordinate currentCoordinate = new Coordinate(row, column);
+                    if (currentState.board[row, column] == Player.White)
                     {
                         buttonsGrid[row, column].Image = Resources.white;
                     }
-                    else
+                    else if (currentState.board[row, column] == Player.Black)
                     {
                         buttonsGrid[row, column].Image = Resources.black;
+                    }
+                    else if (validMoves.ContainsKey(currentCoordinate)){
+                        buttonsGrid[row, column].Image = Resources.valid;
+                    }
+                    
+                    else 
+                    {
+                        buttonsGrid[row, column].Image = Resources.empty;
                     }
                 }
             }
@@ -73,7 +80,6 @@ namespace OthelloAI
             board[4, 3] = Player.Black;
             board[4, 4] = Player.White;
             currentState = new State(board);
-
             buttonsGrid = new Button[8, 8];
             for (int row = 0; row < 8; row++)
             {
@@ -91,7 +97,7 @@ namespace OthelloAI
                     buttonsGrid[row, column] = button;
                 }
             }
-
+            validMoves = currentState.getValidMoves(currentTurn);
             updateBoard();
         }
 
@@ -113,21 +119,48 @@ namespace OthelloAI
             int row = indices.X;
             int column = indices.Y;
             Coordinate currentMove = new Coordinate(row, column);
-            Dictionary<Coordinate, List<Coordinate>> validMoves = currentState.getValidMoves(currentTurn);
+            validMoves = currentState.getValidMoves(currentTurn);
 
             if (validMoves.ContainsKey(currentMove))
             {
-                currentState.applyMove(currentTurn, currentMove);
-                //swap currentTurn using the static method in Player called 
+                //update current state 
+                currentState = currentState.applyMove(currentTurn, currentMove);
+                //swap currentTurn using the static method in Player 
                 currentTurn = Coordinate.otherPlayer(currentTurn);
+                //Update valid moves
+                validMoves = currentState.getValidMoves(currentTurn);
+                
+                
+                if (validMoves.Count == 0)
+                {
+                    currentTurn = Coordinate.otherPlayer(currentTurn);
+                    Dictionary<Coordinate, List<Coordinate>> otherPlayerValidMoves = currentState.getValidMoves(currentTurn);
+                    if (otherPlayerValidMoves.Count == 0)
+                    {
+                        //Game Over
+                        if (currentState.blackScore > currentState.whiteScore)
+                        {
+                            turnLabel.Text = "Game Over, BLACK WON!!!";
+                            return;
+                        }
+                        else if (currentState.blackScore < currentState.whiteScore)
+                        {
+                            turnLabel.Text = "Game Over, WHITE WON!!!";
+                            return;
+                        }
+                        else
+                        {
+                            turnLabel.Text = "Game Over, It's a Draw!!!";
+                            return;
+                        }
+                    }
+                }
             }
-            else
+            else 
             {
                 MessageBox.Show("This move is not valid, get good loser!");
             }
-           
             updateBoard();
-            
         }
 
         private void blackScoreLabel_Click(object sender, EventArgs e)
