@@ -62,7 +62,6 @@ namespace OthelloAI
                             {
                                 flippedPieces.AddRange(flippedPiecesInThisDirection);
                                 isValidMove = true;
-                                break;
                             }
                         }
                         if (isValidMove) validMoves.Add(new Coordinate(i, j), flippedPieces);
