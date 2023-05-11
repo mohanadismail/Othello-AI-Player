@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OthelloAI
 {
-    enum Player
+    public enum Player
     {
         None,
         Black,
