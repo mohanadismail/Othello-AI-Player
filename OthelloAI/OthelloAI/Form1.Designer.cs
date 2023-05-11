@@ -109,6 +109,7 @@
             trackBar2.Name = "trackBar2";
             trackBar2.Size = new Size(369, 56);
             trackBar2.TabIndex = 6;
+            trackBar2.Scroll += trackBar2_Scroll;
             // 
             // label1
             // 

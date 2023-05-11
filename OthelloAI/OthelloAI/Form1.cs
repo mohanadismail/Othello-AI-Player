@@ -2,12 +2,6 @@ namespace OthelloAI
 {
     public partial class Form1 : Form
     {
-        public enum gameMode
-        {
-            PlayerVsPlayer,
-            PlayerVsAI,
-            AIVsAI
-        }
 
         public gameMode currentGameMode = gameMode.PlayerVsPlayer;
         public Form1()
@@ -27,7 +21,7 @@ namespace OthelloAI
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-
+            //Logic for choosing algorithms
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -79,7 +73,7 @@ namespace OthelloAI
             //hide label2 and trackbar2
             label2.Hide();
             trackBar2.Hide();
-            currentGameMode = gameMode.PlayerVsAI;
+            currentGameMode = GameMode.PlayerVsAI;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -92,7 +86,7 @@ namespace OthelloAI
             //show label2 and trackbar2
             label2.Show();
             trackBar2.Show();
-            currentGameMode = gameMode.AIVsAI;
+            currentGameMode = GameMode.AIVsAI;
         }
 
         private void formatSelectedButton(Button button)
@@ -137,6 +131,11 @@ namespace OthelloAI
                 button3.BackColor = Color.Black;
                 button3.ForeColor = Color.White;
             }
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            //logic for choosing algorithms
         }
     }
 }
