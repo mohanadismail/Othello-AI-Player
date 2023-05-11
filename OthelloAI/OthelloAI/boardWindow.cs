@@ -15,14 +15,59 @@ namespace OthelloAI
     {
         State currentState;
         Button[,] buttonsGrid;
-        Player currentTurn = Player.Black;
+        private Player currentTurn = Player.Black;
+        
         Dictionary<Coordinate, List<Coordinate>> validMoves;
+        Boolean gameOver = false;
+        Form1.gameMode currentGameMode;
+        Player currentHumanPlayerColor = Player.Black;
 
-        public boardWindow()
+        public void changeTurn(Player newTurn)
+        {
+            currentTurn = newTurn;
+            if(currentGameMode == Form1.gameMode.PlayerVsAI && currentTurn != currentHumanPlayerColor)
+            {
+                //do ai move till turn changes
+            }
+        }
+        public boardWindow(Form1.gameMode currentGameMode, Player humanPlayerColor)
         {
             InitializeComponent();
+            this.currentGameMode = currentGameMode;
+            this.currentHumanPlayerColor = humanPlayerColor;
         }
 
+        //Checks if the game is over and changes the currentTurn if there are no valid moves for the current player
+        private void checkGameOver()
+        {
+            if (validMoves.Count == 0)
+            {
+                changeTurn(Coordinate.otherPlayer(currentTurn));
+                Dictionary<Coordinate, List<Coordinate>> otherPlayerValidMoves = currentState.getValidMoves(currentTurn);
+                if (otherPlayerValidMoves.Count == 0)
+                {
+                    //Game Over
+                    if (currentState.blackScore > currentState.whiteScore)
+                    {
+                        turnLabel.Text = "Game Over, BLACK WON!!!";
+                        gameOver = true;
+                        return;
+                    }
+                    else if (currentState.blackScore < currentState.whiteScore)
+                    {
+                        turnLabel.Text = "Game Over, WHITE WON!!!";
+                        gameOver = true;
+                        return;
+                    }
+                    else
+                    {
+                        turnLabel.Text = "Game Over, It's a Draw!!!";
+                        gameOver = true;
+                        return;
+                    }
+                }
+            }
+        }
         private void updateBoard()
         {
             for (int row = 0; row < buttonsGrid.GetLength(0); row++)
@@ -38,15 +83,22 @@ namespace OthelloAI
                     {
                         buttonsGrid[row, column].Image = Resources.black;
                     }
-                    else if (validMoves.ContainsKey(currentCoordinate)){
+                    else if (validMoves.ContainsKey(currentCoordinate))
+                    {
                         buttonsGrid[row, column].Image = Resources.valid;
                     }
-                    
-                    else 
+
+                    else
                     {
                         buttonsGrid[row, column].Image = Resources.empty;
                     }
                 }
+            }
+            whiteScoreLabel.Text = currentState.whiteScore.ToString();
+            blackScoreLabel.Text = currentState.blackScore.ToString();
+            if (gameOver)
+            {
+                return;
             }
             if (currentTurn == Player.White)
             {
@@ -60,7 +112,7 @@ namespace OthelloAI
             {
                 turnLabel.Text = "Hoyyyyyyaaa";
             }
-
+        }
         private void boardWindow_Load(object sender, EventArgs e)
         {
             Player[,] board = new Player[8, 8];
@@ -105,6 +157,21 @@ namespace OthelloAI
 
         private void square_Click(object sender, EventArgs e)
         {
+            if (gameOver)
+            {
+                return;
+            }
+
+            if(currentGameMode == Form1.gameMode.PlayerVsAI && currentTurn != currentHumanPlayerColor)
+            {
+                return;
+            }
+
+            if(currentGameMode == Form1.gameMode.AIVsAI)
+            {
+                return;
+            }
+
             Button button = sender as Button;
 
             Point indices = (Point)button.Tag;
@@ -118,44 +185,21 @@ namespace OthelloAI
                 //update current state 
                 currentState = currentState.applyMove(currentTurn, currentMove);
                 //swap currentTurn using the static method in Player 
-                currentTurn = Coordinate.otherPlayer(currentTurn);
+                changeTurn(Coordinate.otherPlayer(currentTurn));
                 //Update valid moves
                 validMoves = currentState.getValidMoves(currentTurn);
-                
-                
-                if (validMoves.Count == 0)
-                {
-                    currentTurn = Coordinate.otherPlayer(currentTurn);
-                    Dictionary<Coordinate, List<Coordinate>> otherPlayerValidMoves = currentState.getValidMoves(currentTurn);
-                    if (otherPlayerValidMoves.Count == 0)
-                    {
-                        //Game Over
-                        if (currentState.blackScore > currentState.whiteScore)
-                        {
-                            turnLabel.Text = "Game Over, BLACK WON!!!";
-                            return;
-                        }
-                        else if (currentState.blackScore < currentState.whiteScore)
-                        {
-                            turnLabel.Text = "Game Over, WHITE WON!!!";
-                            return;
-                        }
-                        else
-                        {
-                            turnLabel.Text = "Game Over, It's a Draw!!!";
-                            return;
-                        }
-                    }
-                }
+
             }
-            else 
-            {
-                MessageBox.Show("This move is not valid, get good loser!");
-            }
-            updateBoard();
+                checkGameOver();
+                updateBoard();
         }
 
         private void blackScoreLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void boardLayout_Paint(object sender, PaintEventArgs e)
         {
 
         }

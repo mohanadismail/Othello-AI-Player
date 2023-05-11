@@ -61,6 +61,7 @@
             boardLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
             boardLayout.Size = new Size(1005, 740);
             boardLayout.TabIndex = 0;
+            boardLayout.Paint += boardLayout_Paint;
             // 
             // label1
             // 
