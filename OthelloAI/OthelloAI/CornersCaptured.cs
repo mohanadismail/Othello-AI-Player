@@ -8,7 +8,16 @@ namespace OthelloAI
 {
 	internal class CornersCaptured : Heuristic
 	{
-		public CornersCaptured(int weight) : base(weight)
+        // Define the corner positions on the board as a static readonly field
+        private static readonly List<(int, int)> cornerPositions = new List<(int, int)>
+        {
+            (0, 0), // Top-left corner (a1)
+            (0, 7), // Top-right corner (a8)
+            (7, 0), // Bottom-left corner (h1)
+            (7, 7) // Bottom-right corner (h8)
+         };
+
+        public CornersCaptured(int weight) : base(weight)
 		{
 		}
 
@@ -16,15 +25,6 @@ namespace OthelloAI
         {
             int maxPlayerCornerValue = 0;
             int minPlayerCornerValue = 0;
-
-            // Define the corner positions on the board
-            List<(int, int)> cornerPositions = new List<(int, int)>
-            {
-                (0, 0), // Top-left corner (a1)
-                (0, state.board.GetLength(1) - 1), // Top-right corner (a8)
-                (state.board.GetLength(0) - 1, 0), // Bottom-left corner (h1)
-                (state.board.GetLength(0) - 1, state.board.GetLength(1) - 1) // Bottom-right corner (h8)
-            };
 
             // Iterate through the corner positions and count the number of corners captured by each player
             foreach (var corner in cornerPositions)
