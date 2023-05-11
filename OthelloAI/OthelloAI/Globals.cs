@@ -13,6 +13,13 @@ namespace OthelloAI
         White
     }
 
+    public enum GameMode
+    {
+        PlayerVsPlayer,
+        PlayerVsAI,
+        AIVsAI
+    }
+
     internal class Coordinate
     {
         public readonly int x;
