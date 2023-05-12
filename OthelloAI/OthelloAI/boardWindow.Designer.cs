@@ -34,6 +34,7 @@
             label3 = new Label();
             blackScoreLabel = new Label();
             turnLabel = new Label();
+            button1 = new Button();
             SuspendLayout();
             // 
             // boardLayout
@@ -115,12 +116,26 @@
             turnLabel.Text = "Turn";
             turnLabel.Click += turnLabel_Click;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.Black;
+            button1.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Italic, GraphicsUnit.Point);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(1128, 823);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 81);
+            button1.TabIndex = 5;
+            button1.Text = "Next Move";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // boardWindow
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1234, 931);
+            ClientSize = new Size(1234, 945);
+            Controls.Add(button1);
             Controls.Add(turnLabel);
             Controls.Add(blackScoreLabel);
             Controls.Add(label3);
@@ -142,5 +157,6 @@
         private Label label3;
         private Label blackScoreLabel;
         private Label turnLabel;
+        private Button button1;
     }
 }
