@@ -17,21 +17,75 @@ namespace OthelloAI
         State currentState;
         Button[,] buttonsGrid;
         private Player currentTurn = Player.Black;
-        
+        Algorithm firstAlgorithm;
+        Algorithm secondAlgorithm;
         Dictionary<Coordinate, List<Coordinate>> validMoves;
         Boolean gameOver = false;
-        Form1.gameMode currentGameMode;
+        GameMode currentGameMode;
         Player currentHumanPlayerColor = Player.Black;
+
+        private void boardWindow_Load(object sender, EventArgs e)
+        {
+            Player[,] board = new Player[8, 8];
+            for (int row = 0; row < 8; row++)
+            {
+                for (int column = 0; column < 8; column++)
+                {
+                    board[row, column] = Player.None;
+                }
+            }
+            board[3, 3] = Player.White;
+            board[3, 4] = Player.Black;
+            board[4, 3] = Player.Black;
+            board[4, 4] = Player.White;
+            currentState = new State(board);
+            buttonsGrid = new Button[8, 8];
+            for (int row = 0; row < 8; row++)
+            {
+                for (int column = 0; column < 8; column++)
+                {
+                    Button button = new Button();
+                    button.Dock = DockStyle.Fill;
+                    button.Margin = new Padding(0);
+
+                    //Add logic depending on the state of the board and maybe make it a function that refreshes
+                    button.Image = Properties.Resources.empty;
+                    button.Tag = new Point(row, column);
+                    button.Click += square_Click;
+                    boardLayout.Controls.Add(button, column, row);
+                    buttonsGrid[row, column] = button;
+                }
+            }
+            //Algorithms Initialization
+            changeTurn(Player.Black);
+            validMoves = currentState.getValidMoves(currentTurn);
+            updateBoard();
+        }
 
         public void changeTurn(Player newTurn)
         {
             currentTurn = newTurn;
-            if(currentGameMode == Form1.gameMode.PlayerVsAI && currentTurn != currentHumanPlayerColor)
+            if (currentGameMode == GameMode.PlayerVsAI && currentTurn != currentHumanPlayerColor)
             {
                 //do ai move till turn changes
+                //currentState = firstAlgorithm.perform.......
+                changeTurn(Coordinate.otherPlayer(currentTurn));
+                checkGameOver();
+                updateBoard();
+            }
+            if(currentGameMode == GameMode.AIVsAI)
+            {
+                if(currentTurn == Player.White)
+                {
+                    //do first Algorithm stuff
+                    changeTurn(Coordinate.otherPlayer(currentTurn));
+                    validMoves = currentState.getValidMoves(currentTurn); //Not sure if neccessary
+                    checkGameOver();
+                    updateBoard();
+                }
             }
         }
-        public boardWindow(Form1.gameMode currentGameMode, Player humanPlayerColor)
+        public boardWindow(GameMode currentGameMode, Player humanPlayerColor)
         {
             InitializeComponent();
             this.currentGameMode = currentGameMode;
@@ -41,7 +95,7 @@ namespace OthelloAI
         //Checks if the game is over and changes the currentTurn if there are no valid moves for the current player
         private void checkGameOver()
         {
-            if (validMoves.Count == 0)
+            if (validMoves == null || validMoves.Count == 0)
             {
                 changeTurn(Coordinate.otherPlayer(currentTurn));
                 Dictionary<Coordinate, List<Coordinate>> otherPlayerValidMoves = currentState.getValidMoves(currentTurn);
@@ -114,41 +168,6 @@ namespace OthelloAI
                 turnLabel.Text = "Hoyyyyyyaaa";
             }
         }
-        private void boardWindow_Load(object sender, EventArgs e)
-        {
-            Player[,] board = new Player[8, 8];
-            for (int row = 0; row < 8; row++)
-            {
-                for (int column = 0; column < 8; column++)
-                {
-                    board[row, column] = Player.None;
-                }
-            }
-            board[3, 3] = Player.White;
-            board[3, 4] = Player.Black;
-            board[4, 3] = Player.Black;
-            board[4, 4] = Player.White;
-            currentState = new State(board);
-            buttonsGrid = new Button[8, 8];
-            for (int row = 0; row < 8; row++)
-            {
-                for (int column = 0; column < 8; column++)
-                {
-                    Button button = new Button();
-                    button.Dock = DockStyle.Fill;
-                    button.Margin = new Padding(0);
-
-                    //Add logic depending on the state of the board and maybe make it a function that refreshes
-                    button.Image = Properties.Resources.empty;
-                    button.Tag = new Point(row, column);
-                    button.Click += square_Click;
-                    boardLayout.Controls.Add(button, column, row);
-                    buttonsGrid[row, column] = button;
-                }
-            }
-            validMoves = currentState.getValidMoves(currentTurn);
-            updateBoard();
-        }
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -167,12 +186,12 @@ namespace OthelloAI
                 return;
             }
 
-            if(currentGameMode == Form1.gameMode.PlayerVsAI && currentTurn != currentHumanPlayerColor)
+            if (currentGameMode == GameMode.PlayerVsAI && currentTurn != currentHumanPlayerColor)
             {
                 return;
             }
 
-            if(currentGameMode == Form1.gameMode.AIVsAI)
+            if (currentGameMode == GameMode.AIVsAI)
             {
                 return;
             }
@@ -195,8 +214,8 @@ namespace OthelloAI
                 validMoves = currentState.getValidMoves(currentTurn);
 
             }
-                checkGameOver();
-                updateBoard();
+            checkGameOver();
+            updateBoard();
         }
 
         private void blackScoreLabel_Click(object sender, EventArgs e)
@@ -207,6 +226,11 @@ namespace OthelloAI
         private void boardLayout_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
