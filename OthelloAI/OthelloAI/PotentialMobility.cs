@@ -16,14 +16,14 @@ namespace OthelloAI
         {
             Player[,] board = state.board;
             int potentialMoves = 0;
-            Player oponent;
+            Player opponent;
             if(player == Player.White)
             {
-                oponent = Player.Black;
+                opponent = Player.Black;
             }
             else
             {
-                oponent = Player.White;
+                opponent = Player.White;
             }
             // iterate through all the squares on the board
             for (int i = 0; i < 8; i++)
@@ -38,7 +38,7 @@ namespace OthelloAI
                         foreach (Coordinate direction in Coordinate.directions)
                         {
                             Coordinate current = currentEmpty + direction;
-                            if (current.isWithinBoard() && board[current.x, current.y] == oponent)
+                            if (current.isWithinBoard() && board[current.x, current.y] == opponent)
                             {
                                 potentialMoves++;
                                 break;
