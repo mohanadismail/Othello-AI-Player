@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace OthelloAI
 {
-    internal class Mobility : Heuristic
+    internal class ActualMobility : Heuristic
     {
-        public Mobility(int weight) : base(weight)
+        public ActualMobility(int weight) : base(weight)
         {
         }
         public override int calculateUtility(State board, Player max, Player min)
