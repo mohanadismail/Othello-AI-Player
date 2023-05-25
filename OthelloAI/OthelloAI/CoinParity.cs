@@ -13,10 +13,16 @@ namespace OthelloAI
         }
         public override int calculateUtility(State board, Player max, Player min)
         {
-            int whiteScore = board.whiteScore;
-            int blackScore = board.blackScore;
-            int coinParity = 100* Math.Abs(whiteScore - blackScore)/(whiteScore+blackScore);         
-            return coinParity;
+            int maxScore, minScore;
+            if (max == Player.White)
+            {
+                maxScore = board.whiteScore; minScore = board.blackScore;
+            }
+            else
+            {
+                maxScore = board.blackScore; minScore = board.whiteScore;
+            }
+            return 100 * Math.Abs(maxScore - minScore) / (maxScore + minScore);
         }
     }
     
