@@ -13,14 +13,15 @@ namespace OthelloAI
         }
         public override int calculateUtility(State board, Player max, Player min)
         {
-            int maxMoves = board.getValidMoves(max).Count;
+            int maxMoves  = board.getValidMoves(max).Count;
             int minMoves = board.getValidMoves(min).Count;
+           
             if(maxMoves + minMoves == 0)
             {
                 return 0;
             }
 
-            int mobility = 100 * Math.Abs(maxMoves - minMoves) / (maxMoves + minMoves);
+            int mobility = 100 * (maxMoves - minMoves) / (maxMoves + minMoves);
             return mobility;
         }
     }

@@ -22,7 +22,11 @@ namespace OthelloAI
             {
                 maxScore = board.blackScore; minScore = board.whiteScore;
             }
-            return 100 * Math.Abs(maxScore - minScore) / (maxScore + minScore);
+            if (maxScore + minScore == 0)
+            {
+                return 0;
+            }
+            return 100 * (maxScore - minScore) / (maxScore + minScore);
         }
     }
     
