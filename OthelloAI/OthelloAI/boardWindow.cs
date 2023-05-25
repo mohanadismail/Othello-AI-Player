@@ -55,7 +55,13 @@ namespace OthelloAI
                     buttonsGrid[row, column] = button;
                 }
             }
-            //Algorithms Initialization
+            if(currentGameMode != GameMode.AIVsAI)
+            {
+                button1.Hide();
+            }
+            //*********Algorithms Initialization***********
+
+
             changeTurn(Player.Black);
             validMoves = currentState.getValidMoves(currentTurn);
             updateBoard();
@@ -66,7 +72,7 @@ namespace OthelloAI
             currentTurn = newTurn;
             if (currentGameMode == GameMode.PlayerVsAI && currentTurn != currentHumanPlayerColor)
             {
-                //do ai move till turn changes
+                //***********do ai move till turn changes**********
                 //currentState = firstAlgorithm.perform.......
                 changeTurn(Coordinate.otherPlayer(currentTurn));
                 checkGameOver();
@@ -76,8 +82,14 @@ namespace OthelloAI
             {
                 if(currentTurn == Player.White)
                 {
-                    //do first Algorithm stuff
-                    changeTurn(Coordinate.otherPlayer(currentTurn));
+                    //***********do first Algorithm stuff**************
+                    validMoves = currentState.getValidMoves(currentTurn); //Not sure if neccessary
+                    checkGameOver();
+                    updateBoard();
+                }
+                else
+                {
+                    //***********do second Algorithm stuff***********
                     validMoves = currentState.getValidMoves(currentTurn); //Not sure if neccessary
                     checkGameOver();
                     updateBoard();
@@ -229,7 +241,7 @@ namespace OthelloAI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            changeTurn(Coordinate.otherPlayer(currentTurn));
         }
     }
 }
