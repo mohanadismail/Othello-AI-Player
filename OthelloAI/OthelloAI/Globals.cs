@@ -121,14 +121,15 @@ namespace OthelloAI
             // iterate on all valid moves
             foreach (KeyValuePair<Coordinate, List<Coordinate>> move in validMoves)
             {
-                State newState = new State((Player[,])this.state.board.Clone());
+                Player[,] board = (Player[,])this.state.board.Clone();
                 // place the current player's piece
-                newState.board[move.Key.x, move.Key.y] = turn;
+                board[move.Key.x, move.Key.y] = turn;
                 // flip all pieces corresponding to this move
                 foreach (Coordinate flippedPiece in move.Value)
                 {
-                    newState.board[flippedPiece.x, flippedPiece.y] = turn;
+                    board[flippedPiece.x, flippedPiece.y] = turn;
                 }
+                State newState = new State(board);
                 validNextStates.Add(new StateNode(newState, this));
             }
         }
