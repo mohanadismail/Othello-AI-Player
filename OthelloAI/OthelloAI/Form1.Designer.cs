@@ -36,6 +36,7 @@
             label1 = new Label();
             label2 = new Label();
             button4 = new Button();
+            button5 = new Button();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBar2).BeginInit();
             SuspendLayout();
@@ -104,7 +105,7 @@
             // 
             trackBar2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             trackBar2.BackColor = Color.Black;
-            trackBar2.Location = new Point(778, 321);
+            trackBar2.Location = new Point(778, 329);
             trackBar2.Maximum = 4;
             trackBar2.Name = "trackBar2";
             trackBar2.Size = new Size(369, 56);
@@ -156,6 +157,22 @@
             button4.MouseDown += button4_MouseDown;
             button4.MouseUp += button4_MouseUp;
             // 
+            // button5
+            // 
+            button5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            button5.BackColor = Color.White;
+            button5.FlatAppearance.BorderColor = Color.Black;
+            button5.FlatAppearance.BorderSize = 2;
+            button5.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Italic, GraphicsUnit.Point);
+            button5.ForeColor = SystemColors.ActiveCaptionText;
+            button5.Location = new Point(769, 321);
+            button5.Name = "button5";
+            button5.Size = new Size(268, 71);
+            button5.TabIndex = 10;
+            button5.Text = "Play as White";
+            button5.UseVisualStyleBackColor = false;
+            button5.Click += button5_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -164,6 +181,7 @@
             BackgroundImage = Properties.Resources.background;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1185, 609);
+            Controls.Add(button5);
             Controls.Add(button4);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -195,5 +213,6 @@
         private Label label1;
         private Label label2;
         private Button button4;
+        private Button button5;
     }
 }
