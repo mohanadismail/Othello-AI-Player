@@ -18,7 +18,9 @@ namespace OthelloAI
         Button[,] buttonsGrid;
         private Player currentTurn = Player.Black;
         Algorithm firstAlgorithm;
+        int firstAlgorithmDepth;
         Algorithm secondAlgorithm;
+        int secondAlgorithmDepth;
         Dictionary<Coordinate, List<Coordinate>> validMoves;
         Boolean gameOver = false;
         GameMode currentGameMode;
@@ -74,7 +76,7 @@ namespace OthelloAI
             if (currentGameMode == GameMode.PlayerVsAI && currentTurn != currentHumanPlayerColor)
             {
                 //***********do ai move till turn changes**********
-                //currentState = firstAlgorithm.perform.......
+                currentState = firstAlgorithm.performNextMove(currentTurn, new StateNode(currentState), firstAlgorithmDepth, true);
                 changeTurn(Coordinate.otherPlayer(currentTurn));
                 checkGameOver();
                 updateBoard();
@@ -97,11 +99,25 @@ namespace OthelloAI
                 }
             }
         }
-        public boardWindow(GameMode currentGameMode, Player humanPlayerColor)
+        //Human vs Human
+        public boardWindow(GameMode currentGameMode)
+        {
+            InitializeComponent();
+            this.currentGameMode = currentGameMode;
+        }
+        //Human vs Ai
+        public boardWindow(GameMode currentGameMode, Player humanPlayerColor, int difficulty)
         {
             InitializeComponent();
             this.currentGameMode = currentGameMode;
             this.currentHumanPlayerColor = humanPlayerColor;
+            (firstAlgorithm, firstAlgorithmDepth) = chooseAlgorithm(difficulty);
+        }
+
+        public boardWindow(GameMode currentGameMode, int firstAlgorithmDiffuclty, int secondAlgorithmDifficulty)
+        {
+            InitializeComponent();
+            this.currentGameMode = currentGameMode;
         }
 
         //Checks if the game is over and changes the currentTurn if there are no valid moves for the current player
@@ -243,6 +259,18 @@ namespace OthelloAI
         private void button1_Click(object sender, EventArgs e)
         {
             changeTurn(Coordinate.otherPlayer(currentTurn));
+        }
+
+        private (Algorithm, int) chooseAlgorithm(int difficulty)
+        {
+            //if(difficulty == 0)
+            //{
+            List<Heuristic> heuristics = new List<Heuristic>();
+            heuristics.Add(new CoinParity(1));
+            Algorithm algorithm = new MiniMax(heuristics);
+            return (algorithm, 1);
+        //}
+            
         }
     }
 }

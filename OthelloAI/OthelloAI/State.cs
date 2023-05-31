@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OthelloAI
 {
-    internal class State
+    public class State
     {
         public readonly Player[,] board;
         public readonly int blackScore;

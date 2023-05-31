@@ -20,7 +20,7 @@ namespace OthelloAI
         AIVsAI
     }
 
-    internal class Coordinate
+    public class Coordinate
     {
         public readonly int x;
         public readonly int y;
@@ -97,7 +97,7 @@ namespace OthelloAI
     /// <summary>
     /// This class represents a node in the game search tree. It contains a state, all valid next states, and a reference to the parent node.
     /// </summary>
-    internal class StateNode
+    public class StateNode
     {
         public State state;
         public List<StateNode>? validNextStates;
