@@ -86,6 +86,18 @@ namespace OthelloAI
             int beta = int.MaxValue;
             StateNode? bestNode = null;
             node.generateValidNextStates(turn);
+            if (node.validNextStates.Count == 0) {
+                node.generateValidNextStates(Coordinate.otherPlayer(turn));
+                if (node.validNextStates.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    isMaximizingPlayer = !isMaximizingPlayer;
+                    turn = Coordinate.otherPlayer(turn);
+                }
+            }
             if (isMaximizingPlayer)
             {
                 foreach (StateNode child in node.validNextStates)
@@ -121,6 +133,11 @@ namespace OthelloAI
                 else return evaluateState(node.state, Coordinate.otherPlayer(turn), turn);
             }
             node.generateValidNextStates(turn);
+            if (node.validNextStates.Count == 0)
+            {
+                if (isMaximizingPlayer) return evaluateState(node.state, turn, Coordinate.otherPlayer(turn));
+                else return evaluateState(node.state, Coordinate.otherPlayer(turn), turn);
+            }
             if (isMaximizingPlayer)
             {
                 foreach (StateNode child in node.validNextStates)
