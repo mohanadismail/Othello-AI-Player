@@ -135,8 +135,17 @@ namespace OthelloAI
             node.generateValidNextStates(turn);
             if (node.validNextStates.Count == 0)
             {
-                if (isMaximizingPlayer) return evaluateState(node.state, turn, Coordinate.otherPlayer(turn));
-                else return evaluateState(node.state, Coordinate.otherPlayer(turn), turn);
+                node.generateValidNextStates(Coordinate.otherPlayer(turn));
+                if (node.validNextStates.Count == 0)
+                {
+                    if (isMaximizingPlayer) return evaluateState(node.state, turn, Coordinate.otherPlayer(turn));
+                    else return evaluateState(node.state, Coordinate.otherPlayer(turn), turn);
+                }
+                else
+                {
+                    isMaximizingPlayer = !isMaximizingPlayer;
+                    turn = Coordinate.otherPlayer(turn);
+                }
             }
             if (isMaximizingPlayer)
             {
