@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 namespace OthelloAI
@@ -58,11 +59,10 @@ namespace OthelloAI
                     buttonsGrid[row, column] = button;
                 }
             }
-            if(currentGameMode != GameMode.AIVsAI)
+            if (currentGameMode != GameMode.AIVsAI)
             {
-                button1.Hide();
+                nextMoveButton.Hide();
             }
-            //*********Algorithms Initialization***********
 
 
             changeTurn(Player.Black);
@@ -72,30 +72,101 @@ namespace OthelloAI
 
         public void changeTurn(Player newTurn)
         {
-            currentTurn = newTurn;
-            if (currentGameMode == GameMode.PlayerVsAI && currentTurn != currentHumanPlayerColor)
+            if (gameOver)
             {
-                //***********do ai move till turn changes**********
-                currentState = firstAlgorithm.performNextMove(currentTurn, new StateNode(currentState), firstAlgorithmDepth, true);
-                changeTurn(Coordinate.otherPlayer(currentTurn));
-                checkGameOver();
-                updateBoard();
+                return;
             }
-            if(currentGameMode == GameMode.AIVsAI)
+
+            int gameState = checkGameOver();
+            if (currentGameMode == GameMode.PlayerVsPlayer)
             {
-                if(currentTurn == Player.White)
+                if (gameState == 1)
                 {
-                    //***********do first Algorithm stuff**************
-                    validMoves = currentState.getValidMoves(currentTurn); //Not sure if neccessary
-                    checkGameOver();
+                    currentTurn = newTurn;
+                }
+            }
+            if (currentGameMode == GameMode.PlayerVsAI)
+            {
+                if (newTurn == currentHumanPlayerColor)
+                {
+                    currentTurn = currentHumanPlayerColor;
+                    validMoves = currentState.getValidMoves(currentTurn);
                     updateBoard();
                 }
                 else
                 {
-                    //***********do second Algorithm stuff***********
+                    currentTurn = Coordinate.otherPlayer(currentHumanPlayerColor);
+                    currentState = firstAlgorithm.performNextMove(currentTurn, new StateNode(currentState), firstAlgorithmDepth, true);
+                    gameState = checkGameOver();
+
+                    if (gameState == 1)
+                    {
+                        currentTurn = currentHumanPlayerColor;
+                        validMoves = currentState.getValidMoves(currentTurn);
+                        updateBoard();
+                    }
+                    else if (gameState == 0)
+                    {
+                        while (checkGameOver() == 0 && currentState != null)
+                        {
+                            currentState = firstAlgorithm.performNextMove(currentTurn, new StateNode(currentState), firstAlgorithmDepth, true);
+                        }
+                        currentTurn = currentHumanPlayerColor;
+                        updateBoard();
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                }
+                if (currentState == null)
+                    return;
+                validMoves = currentState.getValidMoves(Coordinate.otherPlayer(newTurn));
+            }
+            if (currentGameMode == GameMode.AIVsAI)
+            {
+                if (currentTurn == Player.Black)
+                {
+                    currentState = firstAlgorithm.performNextMove(currentTurn, new StateNode(currentState), firstAlgorithmDepth, true);
                     validMoves = currentState.getValidMoves(currentTurn); //Not sure if neccessary
-                    checkGameOver();
-                    updateBoard();
+                    gameState = checkGameOver();
+
+                    if(gameState == 1)
+                    {
+                        currentTurn = Player.White;
+                        updateBoard();
+                    }
+                    else if(gameState == 0)
+                    {
+                        while(checkGameOver() == 0 && currentState != null)
+                        {
+                            currentState = firstAlgorithm.performNextMove(currentTurn, new StateNode(currentState), firstAlgorithmDepth, true);
+                        }
+                        currentTurn = Player.White;
+                        updateBoard();
+                    }
+                }
+                else
+                {
+                    currentState = secondAlgorithm.performNextMove(currentTurn, new StateNode(currentState), secondAlgorithmDepth, true);
+                    validMoves = currentState.getValidMoves(currentTurn); //Not sure if neccessary
+                    gameState = checkGameOver();
+
+                    if (gameState == 1)
+                    {
+                        currentTurn = Player.Black;
+                        updateBoard();
+                    }
+                    else if (gameState == 0)
+                    {
+                        while (checkGameOver() == 0 && currentState != null)
+                        {
+                            currentState = secondAlgorithm.performNextMove(currentTurn, new StateNode(currentState), secondAlgorithmDepth, true);
+                        }
+                        currentTurn = Player.Black;
+                        updateBoard();
+                    }
                 }
             }
         }
@@ -114,45 +185,64 @@ namespace OthelloAI
             (firstAlgorithm, firstAlgorithmDepth) = chooseAlgorithm(difficulty);
         }
 
-        public boardWindow(GameMode currentGameMode, int firstAlgorithmDiffuclty, int secondAlgorithmDifficulty)
+        public boardWindow(GameMode currentGameMode, int firstAlgorithmDifficulty, int secondAlgorithmDifficulty)
         {
             InitializeComponent();
             this.currentGameMode = currentGameMode;
+            (firstAlgorithm, firstAlgorithmDepth) = chooseAlgorithm(firstAlgorithmDifficulty);
+            (secondAlgorithm, secondAlgorithmDepth) = chooseAlgorithm(secondAlgorithmDifficulty);
         }
 
-        //Checks if the game is over and changes the currentTurn if there are no valid moves for the current player
-        private void checkGameOver()
+        //Checks if the game is over before changing turns 
+        //returns 1 if the other player has moves
+        //returns 0 if the other player does not have moves
+        //returns -1 if game is over
+
+        private int checkGameOver()
         {
-            if (validMoves == null || validMoves.Count == 0)
+            if (gameOver)
+                return 0;
+            Dictionary<Coordinate, List<Coordinate>> otherPlayerValidMoves = currentState.getValidMoves(Coordinate.otherPlayer(currentTurn));
+            if (otherPlayerValidMoves == null || otherPlayerValidMoves.Count == 0)
             {
-                changeTurn(Coordinate.otherPlayer(currentTurn));
-                Dictionary<Coordinate, List<Coordinate>> otherPlayerValidMoves = currentState.getValidMoves(currentTurn);
-                if (otherPlayerValidMoves.Count == 0)
+                validMoves = currentState.getValidMoves(currentTurn);
+                if (validMoves.Count == 0)
                 {
+                    updateBoard();
                     //Game Over
                     if (currentState.blackScore > currentState.whiteScore)
                     {
                         turnLabel.Text = "Game Over, BLACK WON!!!";
                         gameOver = true;
-                        return;
+                        return -1;
                     }
                     else if (currentState.blackScore < currentState.whiteScore)
                     {
                         turnLabel.Text = "Game Over, WHITE WON!!!";
                         gameOver = true;
-                        return;
+                        return -1;
                     }
                     else
                     {
                         turnLabel.Text = "Game Over, It's a Draw!!!";
                         gameOver = true;
-                        return;
+                        return -1;
                     }
                 }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 1;
             }
         }
         private void updateBoard()
         {
+            if (currentState == null)
+                return;
             for (int row = 0; row < buttonsGrid.GetLength(0); row++)
             {
                 for (int column = 0; column < buttonsGrid.GetLength(1); column++)
@@ -166,7 +256,7 @@ namespace OthelloAI
                     {
                         buttonsGrid[row, column].Image = Resources.black;
                     }
-                    else if (validMoves.ContainsKey(currentCoordinate))
+                    else if (validMoves != null && validMoves.ContainsKey(currentCoordinate))
                     {
                         buttonsGrid[row, column].Image = Resources.valid;
                     }
@@ -239,11 +329,15 @@ namespace OthelloAI
                 //swap currentTurn using the static method in Player 
                 changeTurn(Coordinate.otherPlayer(currentTurn));
                 //Update valid moves
-                validMoves = currentState.getValidMoves(currentTurn);
+                if(currentState != null)
+                    validMoves = currentState.getValidMoves(currentTurn);
+                
+                if (currentGameMode == GameMode.PlayerVsPlayer)
+                {
+                    updateBoard();
 
+                }
             }
-            checkGameOver();
-            updateBoard();
         }
 
         private void blackScoreLabel_Click(object sender, EventArgs e)
@@ -263,13 +357,31 @@ namespace OthelloAI
 
         private (Algorithm, int) chooseAlgorithm(int difficulty)
         {
-            //if(difficulty == 0)
-            //{
-            List<Heuristic> heuristics = new List<Heuristic>();
-            heuristics.Add(new CoinParity(1));
-            Algorithm algorithm = new MiniMax(heuristics);
-            return (algorithm, 1);
-        //}
+            if(difficulty == 0)
+            {
+                List<Heuristic> heuristics = new List<Heuristic>();
+                heuristics.Add(new CoinParity(-1));
+                Algorithm algorithm = new AlphaBetaPruning(heuristics);
+                return (algorithm, 2);
+            }
+            else if (difficulty == 1)
+            {
+                List<Heuristic> heuristics = new List<Heuristic>();
+                heuristics.Add(new Stability(1));
+                Algorithm algorithm = new AlphaBetaPruning(heuristics);
+                return (algorithm, 5);
+            }
+            else //(difficulty == 2)
+            {
+                List<Heuristic> heuristics = new List<Heuristic>();
+                heuristics.Add(new CornersCaptured(30));
+                heuristics.Add(new PotentialMobility(5));
+                heuristics.Add(new Stability(25));
+                Algorithm algorithm = new AlphaBetaPruning(heuristics);
+                return (algorithm, 3);
+            }
+
+            
             
         }
     }

@@ -34,7 +34,7 @@
             label3 = new Label();
             blackScoreLabel = new Label();
             turnLabel = new Label();
-            button1 = new Button();
+            nextMoveButton = new Button();
             SuspendLayout();
             // 
             // boardLayout
@@ -117,18 +117,18 @@
             turnLabel.Text = "Turn";
             turnLabel.Click += turnLabel_Click;
             // 
-            // button1
+            // nextMoveButton
             // 
-            button1.BackColor = Color.Black;
-            button1.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Italic, GraphicsUnit.Point);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(1128, 823);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 81);
-            button1.TabIndex = 5;
-            button1.Text = "Next Move";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            nextMoveButton.BackColor = Color.Black;
+            nextMoveButton.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Italic, GraphicsUnit.Point);
+            nextMoveButton.ForeColor = Color.White;
+            nextMoveButton.Location = new Point(1128, 823);
+            nextMoveButton.Name = "nextMoveButton";
+            nextMoveButton.Size = new Size(94, 81);
+            nextMoveButton.TabIndex = 5;
+            nextMoveButton.Text = "Next Move";
+            nextMoveButton.UseVisualStyleBackColor = false;
+            nextMoveButton.Click += button1_Click;
             // 
             // boardWindow
             // 
@@ -136,7 +136,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1234, 945);
-            Controls.Add(button1);
+            Controls.Add(nextMoveButton);
             Controls.Add(turnLabel);
             Controls.Add(blackScoreLabel);
             Controls.Add(label3);
@@ -160,6 +160,6 @@
         private Label label3;
         private Label blackScoreLabel;
         private Label turnLabel;
-        private Button button1;
+        private Button nextMoveButton;
     }
 }

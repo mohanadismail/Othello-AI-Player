@@ -95,7 +95,7 @@
             trackBar1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             trackBar1.BackColor = Color.Black;
             trackBar1.Location = new Point(157, 329);
-            trackBar1.Maximum = 4;
+            trackBar1.Maximum = 2;
             trackBar1.Name = "trackBar1";
             trackBar1.Size = new Size(323, 56);
             trackBar1.TabIndex = 5;
@@ -106,7 +106,7 @@
             trackBar2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             trackBar2.BackColor = Color.Black;
             trackBar2.Location = new Point(778, 329);
-            trackBar2.Maximum = 4;
+            trackBar2.Maximum = 2;
             trackBar2.Name = "trackBar2";
             trackBar2.Size = new Size(369, 56);
             trackBar2.TabIndex = 6;

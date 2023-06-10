@@ -55,19 +55,21 @@ namespace OthelloAI
             button4.BackColor = Color.Black;
             button4.ForeColor = Color.White;
             //hide the current form
-            if(currentGameMode == GameMode.PlayerVsPlayer) {
+            if (currentGameMode == GameMode.PlayerVsPlayer)
+            {
                 boardWindow boardWindow = new boardWindow(currentGameMode);
                 boardWindow.Show();
             }
             else if (currentGameMode == GameMode.PlayerVsAI)
             {
-                
+
                 boardWindow boardWindow = new boardWindow(currentGameMode, humanPlayerColor, trackBar1.Value);
                 boardWindow.Show();
             }
             else
             {
                 boardWindow boardWindow = new boardWindow(currentGameMode, trackBar1.Value, trackBar2.Value);
+                boardWindow.Show();
             }
         }
         private void button1_Click(object sender, EventArgs e)
@@ -79,7 +81,7 @@ namespace OthelloAI
             //hide trackbar1 and trackbar2
             trackBar1.Hide();
             trackBar2.Hide();
-            
+
             //hide button5
             button5.Hide();
             currentGameMode = GameMode.PlayerVsPlayer;
@@ -145,7 +147,7 @@ namespace OthelloAI
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if(button5.Text == "Play as Black")
+            if (button5.Text == "Play as Black")
             {
                 button5.Text = "Play as White";
                 button5.BackColor = Color.White;
@@ -160,6 +162,6 @@ namespace OthelloAI
                 humanPlayerColor = Player.Black;
             }
         }
-        
+
     }
 }
