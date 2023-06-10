@@ -71,7 +71,7 @@ namespace OthelloAI
                 }
             }
 
-            return bestNextState;
+            return bestNextState == null? node.state : bestNextState;
         }
     }
 
