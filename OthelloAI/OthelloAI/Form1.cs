@@ -68,7 +68,7 @@ namespace OthelloAI
             }
             else
             {
-                boardWindow boardWindow = new boardWindow(currentGameMode, trackBar1.Value, trackBar2.Value);
+                boardWindow boardWindow = new boardWindow(currentGameMode, trackBar2.Value, trackBar1.Value);
                 boardWindow.Show();
             }
         }

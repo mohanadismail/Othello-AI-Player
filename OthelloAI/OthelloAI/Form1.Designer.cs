@@ -95,7 +95,7 @@
             trackBar1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             trackBar1.BackColor = Color.Black;
             trackBar1.Location = new Point(157, 329);
-            trackBar1.Maximum = 2;
+            trackBar1.Maximum = 4;
             trackBar1.Name = "trackBar1";
             trackBar1.Size = new Size(323, 56);
             trackBar1.TabIndex = 5;
@@ -106,7 +106,7 @@
             trackBar2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             trackBar2.BackColor = Color.Black;
             trackBar2.Location = new Point(778, 329);
-            trackBar2.Maximum = 2;
+            trackBar2.Maximum = 4;
             trackBar2.Name = "trackBar2";
             trackBar2.Size = new Size(369, 56);
             trackBar2.TabIndex = 6;
@@ -123,7 +123,7 @@
             label1.Name = "label1";
             label1.Size = new Size(116, 64);
             label1.TabIndex = 7;
-            label1.Text = "Ai Difficulty";
+            label1.Text = "White Difficulty";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label2
@@ -137,7 +137,7 @@
             label2.Name = "label2";
             label2.Size = new Size(116, 64);
             label2.TabIndex = 8;
-            label2.Text = "Ai Difficulty";
+            label2.Text = "Black Difficulty";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             label2.Click += label2_Click;
             // 
@@ -147,7 +147,7 @@
             button4.BackColor = Color.Black;
             button4.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Italic, GraphicsUnit.Point);
             button4.ForeColor = Color.White;
-            button4.Location = new Point(441, 490);
+            button4.Location = new Point(420, 495);
             button4.Name = "button4";
             button4.Size = new Size(358, 79);
             button4.TabIndex = 9;

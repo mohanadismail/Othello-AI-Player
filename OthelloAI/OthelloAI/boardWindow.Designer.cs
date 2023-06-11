@@ -110,7 +110,7 @@
             // 
             turnLabel.AutoSize = true;
             turnLabel.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
-            turnLabel.Location = new Point(551, 92);
+            turnLabel.Location = new Point(450, 99);
             turnLabel.Name = "turnLabel";
             turnLabel.Size = new Size(90, 35);
             turnLabel.TabIndex = 4;
