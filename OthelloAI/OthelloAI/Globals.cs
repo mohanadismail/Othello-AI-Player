@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace OthelloAI
 {
-    enum Player
+    public enum Player
     {
         None,
         Black,
         White
     }
 
-    internal class Coordinate
+    public enum GameMode
+    {
+        PlayerVsPlayer,
+        PlayerVsAI,
+        AIVsAI
+    }
+
+    public class Coordinate
     {
         public readonly int x;
         public readonly int y;
@@ -90,7 +97,7 @@ namespace OthelloAI
     /// <summary>
     /// This class represents a node in the game search tree. It contains a state, all valid next states, and a reference to the parent node.
     /// </summary>
-    internal class StateNode
+    public class StateNode
     {
         public State state;
         public List<StateNode>? validNextStates;
@@ -114,14 +121,15 @@ namespace OthelloAI
             // iterate on all valid moves
             foreach (KeyValuePair<Coordinate, List<Coordinate>> move in validMoves)
             {
-                State newState = new State((Player[,])this.state.board.Clone());
+                Player[,] board = (Player[,])this.state.board.Clone();
                 // place the current player's piece
-                newState.board[move.Key.x, move.Key.y] = turn;
+                board[move.Key.x, move.Key.y] = turn;
                 // flip all pieces corresponding to this move
                 foreach (Coordinate flippedPiece in move.Value)
                 {
-                    newState.board[flippedPiece.x, flippedPiece.y] = turn;
+                    board[flippedPiece.x, flippedPiece.y] = turn;
                 }
+                State newState = new State(board);
                 validNextStates.Add(new StateNode(newState, this));
             }
         }

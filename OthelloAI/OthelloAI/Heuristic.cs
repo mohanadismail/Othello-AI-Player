@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OthelloAI
 {
-    internal abstract class Heuristic
+    public abstract class Heuristic
     {
         public Heuristic(int weight)
         {

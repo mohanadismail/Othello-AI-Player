@@ -40,9 +40,7 @@ namespace OthelloAI
                             Coordinate current = currentEmpty + direction;
                             if (current.isWithinBoard() && board[current.x, current.y] == opponent)
                             {
-                                potentialMoves++;
-                                break;
-                                
+                                potentialMoves++;                                
                             }
                            
                         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OthelloAI
 {
-    internal class State
+    public class State
     {
         public readonly Player[,] board;
         public readonly int blackScore;
@@ -62,7 +62,6 @@ namespace OthelloAI
                             {
                                 flippedPieces.AddRange(flippedPiecesInThisDirection);
                                 isValidMove = true;
-                                break;
                             }
                         }
                         if (isValidMove) validMoves.Add(new Coordinate(i, j), flippedPieces);

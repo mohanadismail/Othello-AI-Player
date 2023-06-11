@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace OthelloAI
 {
-    internal abstract class Algorithm
+    public abstract class Algorithm
     {
-        protected List<Heuristic> heuristics;
+        public List<Heuristic> heuristics;
 
         public Algorithm(List<Heuristic> heuristics)
         {
@@ -71,7 +71,7 @@ namespace OthelloAI
                 }
             }
 
-            return bestNextState;
+            return bestNextState == null? node.state : bestNextState;
         }
     }
 
