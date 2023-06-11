@@ -147,7 +147,7 @@
             button4.BackColor = Color.Black;
             button4.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Italic, GraphicsUnit.Point);
             button4.ForeColor = Color.White;
-            button4.Location = new Point(441, 490);
+            button4.Location = new Point(420, 495);
             button4.Name = "button4";
             button4.Size = new Size(358, 79);
             button4.TabIndex = 9;
