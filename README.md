@@ -16,8 +16,8 @@ Othello is a strategy board game for two players, played on an 8×8 uncheckered b
 ### Modes
 The game supports 3 different modes of playing:
 1.	Human versus Human
-2.	Human vs AI
-3.	AI vs AI
+2.	Human versus AI
+3.	AI versus AI
 
 ### Difficulty levels
 The game supports 5 different difficulties the player can choose for any AI
@@ -29,8 +29,7 @@ The user interface supports multiple features:
 3.	Announcing the winner when no valid moves are left
 
 ## User Manual
-An exe of the game can be found [here]().
-The game is played using the mouse. Once you open the exe file, you will be presented with this screen:
+The game is played using the mouse. Once you open the game, you will be presented with this screen:
 ![Main Menu](OthelloAI/OthelloAI/Resources/mainmenu.png)
 You have 3 buttons at the top to choose the game mode. You can play against another human, against the AI, or make two AI players play against each other.
 
