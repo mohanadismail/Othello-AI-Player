@@ -96,6 +96,7 @@ namespace OthelloAI
                 else
                 {
                     currentTurn = Coordinate.otherPlayer(currentHumanPlayerColor);
+                    updateBoard();
                     currentState = firstAlgorithm.performNextMove(currentTurn, new StateNode(currentState), firstAlgorithmDepth, true);
                     gameState = checkGameOver();
 
@@ -247,6 +248,8 @@ namespace OthelloAI
         {
             if (currentState == null)
                 return;
+
+            validMoves = currentState.getValidMoves(currentTurn);
             for (int row = 0; row < buttonsGrid.GetLength(0); row++)
             {
                 for (int column = 0; column < buttonsGrid.GetLength(1); column++)
@@ -281,14 +284,11 @@ namespace OthelloAI
             {
                 turnLabel.Text = "White's turn";
             }
-            else if (currentTurn == Player.Black)
+            else
             {
                 turnLabel.Text = "Black's turn";
             }
-            else
-            {
-                turnLabel.Text = "Hoyyyyyyaaa";
-            }
+            Application.DoEvents();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -330,6 +330,10 @@ namespace OthelloAI
             {
                 //update current state 
                 currentState = currentState.applyMove(currentTurn, currentMove);
+                if(currentGameMode == GameMode.PlayerVsAI)
+                {
+                    updateBoard();
+                }
                 //swap currentTurn using the static method in Player 
                 changeTurn(Coordinate.otherPlayer(currentTurn));
                 //Update valid moves
@@ -366,23 +370,39 @@ namespace OthelloAI
                 List<Heuristic> heuristics = new List<Heuristic>();
                 heuristics.Add(new CoinParity(-1));
                 Algorithm algorithm = new AlphaBetaPruning(heuristics);
-                return (algorithm, 2);
+                return (algorithm, 3);
             }
             else if (difficulty == 1)
             {
                 List<Heuristic> heuristics = new List<Heuristic>();
                 heuristics.Add(new Stability(1));
                 Algorithm algorithm = new AlphaBetaPruning(heuristics);
-                return (algorithm, 5);
+                return (algorithm, 2);
             }
-            else //(difficulty == 2)
+            else if (difficulty == 2)
+            {
+                List<Heuristic> heuristics = new List<Heuristic>();
+                heuristics.Add(new Stability(1));
+                Algorithm algorithm = new AlphaBetaPruning(heuristics);
+                return (algorithm, 4);
+            }
+            else if (difficulty == 3)
             {
                 List<Heuristic> heuristics = new List<Heuristic>();
                 heuristics.Add(new CornersCaptured(30));
                 heuristics.Add(new PotentialMobility(5));
                 heuristics.Add(new Stability(25));
                 Algorithm algorithm = new AlphaBetaPruning(heuristics);
-                return (algorithm, 3);
+                return (algorithm, 2);
+            }
+            else //if (difficulty == 4)
+            {
+                List<Heuristic> heuristics = new List<Heuristic>();
+                heuristics.Add(new CornersCaptured(30));
+                heuristics.Add(new PotentialMobility(5));
+                heuristics.Add(new Stability(25));
+                Algorithm algorithm = new AlphaBetaPruning(heuristics);
+                return (algorithm, 4);
             }
 
 
