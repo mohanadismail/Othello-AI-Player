@@ -15,15 +15,12 @@ Othello is a strategy board game for two players, played on an 8×8 uncheckered b
 ## Project Features
 ### Modes
 The game supports 3 different modes of playing:
-1.	Human versus human
+1.	Human versus Human
 2.	Human vs AI
 3.	AI vs AI
 
 ### Difficulty levels
-The game supports 3 different difficulties the player can choose for any AI:
-1.	Easy
-2.	Medium
-3.	Hard
+The game supports 5 different difficulties the player can choose for any AI
 
 ### User Interface Features
 The user interface supports multiple features:
