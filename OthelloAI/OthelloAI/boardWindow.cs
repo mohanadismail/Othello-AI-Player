@@ -330,7 +330,7 @@ namespace OthelloAI
             {
                 //update current state 
                 currentState = currentState.applyMove(currentTurn, currentMove);
-                if(currentGameMode == GameMode.PlayerVsAI)
+                if (currentGameMode == GameMode.PlayerVsAI)
                 {
                     updateBoard();
                 }
