@@ -69,7 +69,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(78, 20);
+            label1.Location = new Point(13, 20);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(249, 42);
@@ -81,7 +81,7 @@
             // 
             whiteScoreLabel.AutoSize = true;
             whiteScoreLabel.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
-            whiteScoreLabel.Location = new Point(335, 20);
+            whiteScoreLabel.Location = new Point(257, 20);
             whiteScoreLabel.Margin = new Padding(4, 0, 4, 0);
             whiteScoreLabel.Name = "whiteScoreLabel";
             whiteScoreLabel.Size = new Size(33, 42);
@@ -92,7 +92,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(943, 20);
+            label3.Location = new Point(1146, 20);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(240, 42);
@@ -103,7 +103,7 @@
             // 
             blackScoreLabel.AutoSize = true;
             blackScoreLabel.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
-            blackScoreLabel.Location = new Point(1191, 20);
+            blackScoreLabel.Location = new Point(1394, 20);
             blackScoreLabel.Margin = new Padding(4, 0, 4, 0);
             blackScoreLabel.Name = "blackScoreLabel";
             blackScoreLabel.Size = new Size(131, 42);
@@ -115,7 +115,7 @@
             // 
             turnLabel.AutoSize = true;
             turnLabel.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
-            turnLabel.Location = new Point(570, 20);
+            turnLabel.Location = new Point(606, 20);
             turnLabel.Margin = new Padding(4, 0, 4, 0);
             turnLabel.Name = "turnLabel";
             turnLabel.Size = new Size(105, 42);
