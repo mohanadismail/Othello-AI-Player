@@ -50,7 +50,7 @@
             boardLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
             boardLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
             boardLayout.Location = new Point(121, 78);
-            boardLayout.Margin = new Padding(4, 4, 4, 4);
+            boardLayout.Margin = new Padding(4);
             boardLayout.Name = "boardLayout";
             boardLayout.RowCount = 8;
             boardLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
@@ -92,7 +92,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(943, 9);
+            label3.Location = new Point(943, 20);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(240, 42);
@@ -103,7 +103,7 @@
             // 
             blackScoreLabel.AutoSize = true;
             blackScoreLabel.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
-            blackScoreLabel.Location = new Point(1191, 9);
+            blackScoreLabel.Location = new Point(1191, 20);
             blackScoreLabel.Margin = new Padding(4, 0, 4, 0);
             blackScoreLabel.Name = "blackScoreLabel";
             blackScoreLabel.Size = new Size(131, 42);
@@ -129,7 +129,7 @@
             nextMoveButton.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Italic, GraphicsUnit.Point);
             nextMoveButton.ForeColor = Color.White;
             nextMoveButton.Location = new Point(1358, 839);
-            nextMoveButton.Margin = new Padding(4, 4, 4, 4);
+            nextMoveButton.Margin = new Padding(4);
             nextMoveButton.Name = "nextMoveButton";
             nextMoveButton.Size = new Size(118, 101);
             nextMoveButton.TabIndex = 5;
@@ -150,7 +150,7 @@
             Controls.Add(whiteScoreLabel);
             Controls.Add(label1);
             Controls.Add(boardLayout);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             MaximumSize = new Size(1560, 1226);
             MinimumSize = new Size(1560, 1018);
             Name = "boardWindow";
